@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mybatis的主配置文件 -->
+<!--namespace:名称空间;为映射文件指定一个唯一的路径-->
+<mapper namespace="cn.bdqn.mapper.EmployeeMapper">
+    <!--
+        查询全部的员工。
+            id：唯一标识,标识映射文件中的sql,将来可以拿着这个唯一的标识进行查询
+            resultType：返回值类型,将数据库查询的结果映射到实体
+    -->
+    <!--  自定义属性映射  -->
+    <resultMap id="EmployeeResultMap" type="cn.bdqn.domain.Employee">
+        <result property="empName" column="emp_name"/>
+    </resultMap>
+
+    <!--查询全部的员工-->
+    <select id="selectAllEmployees" resultMap="EmployeeResultMap">
+        select id,emp_name,sex,email,birthday,address from t_employee
+    </select>
+    <!--根据ID查询员工-->
+    <select id="queryById" parameterType="int" resultType="cn.bdqn.domain.Employee">
+       select id,emp_name empName,sex,email,birthday,address from t_employee where id = #{id}
+    </select>
+
+    <!--模糊查询-->
+    <select id="selectByName"	resultType="cn.bdqn.domain.Employee">
+    select
+       	id,emp_name empName,sex,email,birthday,address
+    from
+        t_employee
+    where
+        emp_name like concat('%','${empName}','%')
+</select>
+
+
+    <!--    添加员工   -->
+    <insert id="save" parameterType="cn.bdqn.domain.Employee">
+        insert into
+            t_employee(emp_name,sex,email,birthday,address)
+        values
+            (#{empName},#{sex},#{email},#{birthday},#{address})
+    </insert>
+
+    <!--    根据员工名和和性别查询员工  -->
+    <select id="queryByNameAndSex" resultType="cn.bdqn.domain.Employee">
+        select
+            id,emp_name empName,sex,email,birthday,address
+        from
+            t_employee
+        where
+            emp_name = #{empName} and sex = #{sex}
+    </select>
+    <!--    根据员工名和和性别查询员工  -->
+    <select id="queryByNameAndSex1" resultType="cn.bdqn.domain.Employee">
+        select
+            id,emp_name empName,sex,email,birthday,address
+        from
+            t_employee
+        where
+            emp_name = #{empName} and sex = #{sex}
+    </select>
+
+
+    <!--    根据员工名和和性别查询员工  -->
+    <select id="queryByNameAndSex2" resultType="cn.bdqn.domain.Employee">
+        select
+            id,emp_name empName,sex,email,birthday,address
+        from
+            t_employee
+        where
+            emp_name = #{empNameKey} and sex = #{sexKey}
+    </select>
+
+    <!--    根据员工名和和性别查询员工  -->
+    <select id="queryByNameAndSex3" resultType="cn.bdqn.domain.Employee">
+        select
+            id,emp_name empName,sex,email,birthday,address
+        from
+            t_employee
+        where
+            emp_name = #{empNameKey} and sex = #{sexKey}
+    </select>
+
+    <!--    根据员工名和和性别查询员工  -->
+    <select id="queryByNameAndSex4" resultType="cn.bdqn.domain.Employee">
+        select
+            id,emp_name empName,sex,email,birthday,address
+        from
+            t_employee
+        where
+            emp_name = #{empName} and sex = #{sex}
+    </select>
+
+
+    <!--    根据id列表查询员工  -->
+    <select id="queryByIds" resultType="cn.bdqn.domain.Employee">
+        select
+            id,emp_name empName,sex,email,birthday,address
+        from
+            t_employee
+        where
+            id = #{list[0]}
+    </select>
+    <!--    根据id列表查询员工  -->
+    <select id="queryByIds2" resultType="cn.bdqn.domain.Employee">
+        select
+            id,emp_name empName,sex,email,birthday,address
+        from
+            t_employee
+        where
+            id = #{array[0]}
+    </select>
+
+
+    <!--    根据员工姓名模糊查询所有员工  -->
+    <select id="queryEmployeesByName" resultType="cn.bdqn.domain.Employee">
+        select
+            id,emp_name empName,sex,email,birthday,address
+        from
+            t_employee
+        where
+            emp_name like concat('%','${empName}','%')
+    </select>
+
+
+    <!--    根据员工id查询员工信息，返回值是一个Map  -->
+    <select id="queryByIdA1" resultType="map">
+        select
+            id,emp_name,sex,email,birthday,address
+        from
+            t_employee
+        where
+            id = #{id}
+    </select>
+
+    <!--    根据姓名模糊查询员工列表，返回的值是一个List<Map<String,Object>>  -->
+    <select id="queryByNameA1" resultType="map">
+        select
+            id,emp_name,sex,email,birthday,address
+        from
+            t_employee
+        where
+            emp_name like concat('%','${empName}','%')
+    </select>
+
+
+
+        </mapper>

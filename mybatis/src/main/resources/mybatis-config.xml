@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!-- mybatis的主配置文件 -->
+<!-- mybatis的主配置文件 -->
+<configuration>
+    <properties resource="db.properties" />
+    <!-- 配置环境 -->
+    <environments default="mysql">
+        <!-- 配置mysql的环境-->
+        <environment id="mysql">
+            <!-- 配置事务的类型-->
+            <transactionManager type="JDBC"></transactionManager>
+            <!-- 配置数据源（连接池） -->
+
+                <!-- 配置连接数据库的4个基本信息 -->
+                <dataSource type="POOLED">
+                    <!-- 配置连接数据库的4个基本信息 -->
+                    <property name="driver" value="${mysql.driver}"/>
+                    <property name="url" value="${mysql.url}"/>
+                    <property name="username" value="${mysql.username}"/>
+                    <property name="password" value="${mysql.password}"/>
+                </dataSource>
+
+        </environment>
+    </environments>
+
+    <!--  将我们写好的sql映射文件一定要注册到全局配置文件  -->
+    <mappers>
+       <package name="cn.bdqn.mapper"/>
+        <package name="cn.bdqn.domain"/>
+    </mappers>
+
+</configuration>
